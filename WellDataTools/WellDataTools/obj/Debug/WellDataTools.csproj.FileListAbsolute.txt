@@ -1,0 +1,5 @@
+C:\Users\tyler-eg\Source\Repos\well-log-data\WellDataTools\WellDataTools\obj\Debug\WellDataTools.csprojResolveAssemblyReference.cache
+C:\Users\tyler-eg\Source\Repos\well-log-data\WellDataTools\WellDataTools\bin\Debug\WellDataTools.dll
+C:\Users\tyler-eg\Source\Repos\well-log-data\WellDataTools\WellDataTools\bin\Debug\WellDataTools.pdb
+C:\Users\tyler-eg\Source\Repos\well-log-data\WellDataTools\WellDataTools\obj\Debug\WellDataTools.dll
+C:\Users\tyler-eg\Source\Repos\well-log-data\WellDataTools\WellDataTools\obj\Debug\WellDataTools.pdb

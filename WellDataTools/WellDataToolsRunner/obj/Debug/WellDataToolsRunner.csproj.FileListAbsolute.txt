@@ -1,0 +1,8 @@
+C:\Users\tyler-eg\Source\Repos\well-log-data\WellDataTools\WellDataToolsRunner\bin\Debug\WellDataToolsRunner.exe.config
+C:\Users\tyler-eg\Source\Repos\well-log-data\WellDataTools\WellDataToolsRunner\bin\Debug\WellDataToolsRunner.exe
+C:\Users\tyler-eg\Source\Repos\well-log-data\WellDataTools\WellDataToolsRunner\bin\Debug\WellDataToolsRunner.pdb
+C:\Users\tyler-eg\Source\Repos\well-log-data\WellDataTools\WellDataToolsRunner\bin\Debug\WellDataTools.dll
+C:\Users\tyler-eg\Source\Repos\well-log-data\WellDataTools\WellDataToolsRunner\bin\Debug\WellDataTools.pdb
+C:\Users\tyler-eg\Source\Repos\well-log-data\WellDataTools\WellDataToolsRunner\obj\Debug\WellDataToolsRunner.csprojResolveAssemblyReference.cache
+C:\Users\tyler-eg\Source\Repos\well-log-data\WellDataTools\WellDataToolsRunner\obj\Debug\WellDataToolsRunner.exe
+C:\Users\tyler-eg\Source\Repos\well-log-data\WellDataTools\WellDataToolsRunner\obj\Debug\WellDataToolsRunner.pdb
