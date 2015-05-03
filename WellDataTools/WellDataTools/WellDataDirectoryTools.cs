@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Security.Policy;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -10,39 +13,98 @@ using System.Web.Script.Serialization;
 
 namespace WellDataTools
 {
-   public  class WellDataDirectoryTools
+    public class WellDataDirectoryTools
     {
-        public static void CsvToJson()
+        public static List<KansasWellDirectoryItem> GetKansasWellDirectoryFromTxtFile(string txtFileName, int count)
         {
             var kansasWellDirectory = new List<KansasWellDirectoryItem>();
-            var csv = new List<string[]>(); // or, List<YourClass>
-            var lines = File.ReadAllLines(@"C:\Users\tyler-eg\Source\Repos\well-log-data\KS\ks_las_files.txt");
-            foreach (string line in lines)
+            var csv = new List<string[]>();
+            var lines = File.ReadAllLines(txtFileName);  //@"C:\Users\tyler-eg\Source\Repos\well-log-data\KS\ks_las_files.txt"
+            for (var i=0; i<count; i++)
             {
-                if (Array.IndexOf(lines, line) == 0) { continue;}
-                var lineProps = line.Replace("\"", "").Split(',');
+                var line = lines[i];
+
+                if (Array.IndexOf(lines, line) == 0) { continue; }
+                var lineProps = line.Split('\"');
+                var filteredLineProps = new List<string>();
+                foreach (var prop in lineProps)
+                {
+                    if (prop == ",") { continue; }
+
+                    filteredLineProps.Add(prop);
+                }
+                // var lineProps = line.Replace("\"", "").Replace(", Sec", " Sec").Replace(", LLC", " LLC").Replace(",  ", "  ").Replace(", C", " C").Replace(", Inc.", " Inc.").Split(',');
                 var kwdi = new KansasWellDirectoryItem();
-                kwdi.KGS_ID = lineProps[0];
-                kwdi.Latitude = lineProps[1];
-                kwdi.Longitude = lineProps[2];
-                kwdi.Location = lineProps[3];
-                kwdi.Operator = lineProps[4];
-                kwdi.Lease = lineProps[5];
-                kwdi.API = lineProps[6];
-                kwdi.Elevation = lineProps[7];
-                kwdi.Elev_Ref = lineProps[8];
-                kwdi.Depth_start = lineProps[9];
-                kwdi.Depth_stop = lineProps[10];
-                kwdi.URL = lineProps[11];
+                kwdi.KGS_ID = filteredLineProps[1];
+                kwdi.Latitude = filteredLineProps[2];
+                kwdi.Longitude = filteredLineProps[3];
+                kwdi.Location = filteredLineProps[4];
+                kwdi.Operator = filteredLineProps[5];
+                kwdi.Lease = filteredLineProps[6];
+                kwdi.API = filteredLineProps[7];
+                kwdi.Elevation = filteredLineProps[8];
+                kwdi.Elev_Ref = filteredLineProps[9];
+                kwdi.Depth_start = filteredLineProps[10];
+                kwdi.Depth_stop = filteredLineProps[11];
+                kwdi.URL = filteredLineProps[12];
                 kansasWellDirectory.Add(kwdi);
-               //csv.Add(line.Replace("\"", "").Split(',')); // or, populate YourClass        
-                
             }
+
+            return kansasWellDirectory;
+        }
+
+        public static void SerializeKansasWellDirectory(
+            List<KansasWellDirectoryItem> kansasWellDirectory, string jsonFileName)
+        {
             var jss = new JavaScriptSerializer();
             jss.MaxJsonLength = int.MaxValue;
             string json = jss.Serialize(kansasWellDirectory);
 
-            File.WriteAllText(@"C:\Users\tyler-eg\Source\Repos\well-log-data\KS\ks_las_files.json", json);
+            File.WriteAllText(jsonFileName, json); //@"C:\Users\tyler-eg\Source\Repos\well-log-data\KS\ks_las_files.json"
+        }
+
+        public static List<KansasWellDirectoryItem> DeserializeKansasWellDirectory(string jsonFileName)
+        {
+            var lines = File.ReadAllLines(jsonFileName); //@"C:\Users\tyler-eg\Source\Repos\well-log-data\KS\ks_las_files.json"
+            var jss = new JavaScriptSerializer();
+            jss.MaxJsonLength = int.MaxValue;
+            //return lines.Select(line => jss.Deserialize<KansasWellDirectoryItem>(line)).ToList();
+
+            var kwd = new List<KansasWellDirectoryItem>();
+
+            foreach (var line in lines)
+            {
+                var kwdi = jss.Deserialize<KansasWellDirectoryItem>(line);
+                kwd.Add(kwdi);
+            }
+            return kwd;
+        }
+
+        public static void CopyWellDataFileLocal(KansasWellDirectoryItem kwdi)
+        {
+            byte[] data;
+            var fileName = kwdi.URL.Split('/').Last();
+            if (!File.Exists(@"C:\Users\tyler-eg\Source\Repos\well-log-data\sample\" + fileName))
+            {
+                using (WebClient client = new WebClient())
+                {
+                    try
+                    {
+                        client.DownloadFile(kwdi.URL, @"C:\Users\tyler-eg\Source\Repos\well-log-data\sample\" + fileName);
+                        Console.WriteLine("downloaded " + kwdi.URL);
+                    }
+                    catch (WebException ex)
+                    {
+                        Console.WriteLine("failed to download " + kwdi.URL);
+                        Console.WriteLine("    -" +ex.Message);
+                       
+                    }
+                    
+                    //data = client.DownloadData("http://testsite.com/web/abc.jpg");
+                    //data = client.DownloadData(kwdi.URL);
+                }
+               // File.WriteAllBytes(@"C:\Users\tyler-eg\Source\Repos\well-log-data\KS\" + fileName, data);
+            }
         }
 
 
