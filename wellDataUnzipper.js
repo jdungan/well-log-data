@@ -28,7 +28,6 @@ function unzipAndStreamRemote(fileName)
       .pipe(unzip.Parse());
 }
 
-
 //grabs local file, unzips it and writes it locally
 function unzipAndWriteLocal(fileName)
 {

@@ -12,7 +12,7 @@ namespace WellDataToolsRunner
         static void Main(string[] args)
         {
             //DoAll();
-            DoCount(50);
+            DoCount(500);
         }
 
         static void DoCount(int count)
@@ -29,10 +29,12 @@ namespace WellDataToolsRunner
                 WellDataDirectoryTools.CopyWellDataFileLocal(kwdi);
             }
 
-            var nodePath = @"C:\Program Files\nodejs\node.exe";
-            var nodeModPath = @"C:\Users\tyler-eg\Source\Repos\well-log-data\wellDataUnzipper.js";
+            //var nodePath = @"C:\Program Files\nodejs\node.exe";
+            //var nodeModPath = @"C:\Users\tyler-eg\Source\Repos\well-log-data\wellDataUnzipper.js";
 
-            System.Diagnostics.Process.Start( nodePath,nodeModPath);
+            //System.Diagnostics.Process.Start( nodePath,nodeModPath);
+
+            //Console.ReadLine();
         }
 
         //static void DoAll()
