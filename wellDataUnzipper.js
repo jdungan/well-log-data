@@ -5,8 +5,8 @@ var fstream = require('fstream');
 var path = require("path");
 var request = require('request');
 
-//unzipAndWriteDir("ks/");
-unzipAndWriteRemote("http://www.kgs.ku.edu/WellLogs/01S02E/1020069094.zip",'test/');
+unzipAndWriteDir("sample/");
+//unzipAndWriteRemote("http://www.kgs.ku.edu/WellLogs/01S02E/1020069094.zip",'test/');
 //console.log( unzipAndStreamRemote("http://www.kgs.ku.edu/WellLogs/01S02E/1020069094.zip"));
 
 //grabs remote file, unzips it and writes it locally
@@ -33,7 +33,7 @@ function unzipAndStreamRemote(fileName)
 function unzipAndWriteLocal(fileName)
 {
     var readStream = fs.createReadStream(fileName); //'ks/1000079714.zip'
-    var writeStream = fstream.Writer('ks/');
+    var writeStream = fstream.Writer('sample/');
 
     console.log("Unzipping "+fileName);
     readStream
