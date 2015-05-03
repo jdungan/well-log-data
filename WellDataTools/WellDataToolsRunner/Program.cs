@@ -28,6 +28,11 @@ namespace WellDataToolsRunner
             {
                 WellDataDirectoryTools.CopyWellDataFileLocal(kwdi);
             }
+
+            var nodePath = @"C:\Program Files\nodejs\node.exe";
+            var nodeModPath = @"C:\Users\tyler-eg\Source\Repos\well-log-data\wellDataUnzipper.js";
+
+            System.Diagnostics.Process.Start( nodePath,nodeModPath);
         }
 
         //static void DoAll()
