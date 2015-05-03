@@ -12,7 +12,7 @@ namespace WellDataToolsRunner
         static void Main(string[] args)
         {
             //DoAll();
-            DoCount(500);
+            DoCount(1000);
         }
 
         static void DoCount(int count)
